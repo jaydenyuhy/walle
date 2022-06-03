@@ -11,6 +11,10 @@ buildscript {
     }
 }
 
+//plugins {
+//    id "com.meituan.android.walle" apply false
+//}
+
 allprojects {
     repositories {
         google()
@@ -23,20 +27,23 @@ allprojects {
         enabled = false
         options.encoding = 'UTF-8'
     }
-    
+
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
     }
 }
+
+
 
 ext {
     minSdkVersion = 14
     compileSdkVersion = 31
     targetSdkVersion = compileSdkVersion
     buildToolsVersion = '31.0.0'
-    javaVersion = JavaVersion.VERSION_1_7
+    javaVersion = JavaVersion.VERSION_1_8
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+    delete rootProject.file("repo")
 }

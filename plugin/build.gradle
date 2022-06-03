@@ -1,10 +1,47 @@
 apply plugin: 'groovy'
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'maven-publish'
+
+group = GROUP_ID
+description = DESCRIPTION
+version = VERSION_NAME
 
 jar {
     manifest {
-        attributes 'Walle-Version': VERSION_NAME
+        attributes 'Walle-Version': version
     }
 }
+
+
+//本地依赖插件时使用
+gradlePlugin {
+    plugins {
+        //插件名,每一个插件都可以有
+        routerPlugin {
+            id = group
+            implementationClass = "com.meituan.android.walle.GradlePlugin"
+        }
+    }
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+publishing {
+    publications {
+        maven(MavenPublication) {
+            //插件名称
+            artifactId = 'walle_plugin'
+            from components.java
+        }
+    }
+    //插件存储库
+    repositories {
+        maven {
+            // 生成的插件位置
+            url = uri('../repo')
+        }
+    }
+}
+
 
 dependencies {
     implementation gradleApi()
