@@ -40,25 +40,21 @@ import java.util.TreeMap;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-import org.bouncycastle.asn1.ASN1InputStream;
-import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.DERNull;
-import org.bouncycastle.asn1.DEROutputStream;
-import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
-import org.bouncycastle.asn1.x9.X9ObjectIdentifiers;
-import org.bouncycastle.cert.jcajce.JcaCertStore;
-import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.CMSProcessableByteArray;
-import org.bouncycastle.cms.CMSSignatureEncryptionAlgorithmFinder;
-import org.bouncycastle.cms.CMSSignedData;
-import org.bouncycastle.cms.CMSSignedDataGenerator;
-import org.bouncycastle.cms.DefaultCMSSignatureEncryptionAlgorithmFinder;
-import org.bouncycastle.cms.SignerInfoGeneratorBuilder;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.OperatorCreationException;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
+import org.gradle.internal.impldep.org.bouncycastle.asn1.ASN1InputStream;
+import org.gradle.internal.impldep.org.bouncycastle.asn1.ASN1OutputStream;
+import org.gradle.internal.impldep.org.bouncycastle.cert.jcajce.JcaCertStore;
+import org.gradle.internal.impldep.org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
+import org.gradle.internal.impldep.org.bouncycastle.cms.CMSException;
+import org.gradle.internal.impldep.org.bouncycastle.cms.CMSProcessableByteArray;
+import org.gradle.internal.impldep.org.bouncycastle.cms.CMSSignatureEncryptionAlgorithmFinder;
+import org.gradle.internal.impldep.org.bouncycastle.cms.CMSSignedData;
+import org.gradle.internal.impldep.org.bouncycastle.cms.CMSSignedDataGenerator;
+import org.gradle.internal.impldep.org.bouncycastle.cms.DefaultCMSSignatureEncryptionAlgorithmFinder;
+import org.gradle.internal.impldep.org.bouncycastle.cms.SignerInfoGeneratorBuilder;
+import org.gradle.internal.impldep.org.bouncycastle.operator.ContentSigner;
+import org.gradle.internal.impldep.org.bouncycastle.operator.OperatorCreationException;
+import org.gradle.internal.impldep.org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.gradle.internal.impldep.org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 
 import com.android.apksigner.core.internal.jar.ManifestWriter;
 import com.android.apksigner.core.internal.jar.SignatureFileWriter;
@@ -86,10 +82,14 @@ public abstract class V1SchemeSigner {
      * Signer configuration.
      */
     public static class SignerConfig {
-        /** Name. */
+        /**
+         * Name.
+         */
         public String name;
 
-        /** Private key. */
+        /**
+         * Private key.
+         */
         public PrivateKey privateKey;
 
         /**
@@ -109,17 +109,19 @@ public abstract class V1SchemeSigner {
         public DigestAlgorithm contentDigestAlgorithm;
     }
 
-    /** Hidden constructor to prevent instantiation. */
-    private V1SchemeSigner() {}
+    /**
+     * Hidden constructor to prevent instantiation.
+     */
+    private V1SchemeSigner() {
+    }
 
     /**
      * Gets the JAR signing digest algorithm to be used for signing an APK using the provided key.
      *
      * @param minSdkVersion minimum API Level of the platform on which the APK may be installed (see
-     *        AndroidManifest.xml minSdkVersion attribute)
-     *
+     *                      AndroidManifest.xml minSdkVersion attribute)
      * @throws InvalidKeyException if the provided key is not suitable for signing APKs using
-     *         JAR signing (aka v1 signature scheme)
+     *                             JAR signing (aka v1 signature scheme)
      */
     public static DigestAlgorithm getSuggestedSignatureDigestAlgorithm(
             PublicKey signingKey, int minSdkVersion) throws InvalidKeyException {
@@ -157,7 +159,7 @@ public abstract class V1SchemeSigner {
      * Returns the JAR signing digest algorithm to be used for JAR entry digests.
      *
      * @param minSdkVersion minimum API Level of the platform on which the APK may be installed (see
-     *        AndroidManifest.xml minSdkVersion attribute)
+     *                      AndroidManifest.xml minSdkVersion attribute)
      */
     public static DigestAlgorithm getSuggestedContentDigestAlgorithm(int minSdkVersion) {
         return (minSdkVersion >= 18) ? DigestAlgorithm.SHA256 : DigestAlgorithm.SHA1;
@@ -224,12 +226,11 @@ public abstract class V1SchemeSigner {
      * JAR entries which need to be added to the APK as part of the signature.
      *
      * @param signerConfigs signer configurations, one for each signer. At least one signer config
-     *        must be provided.
-     *
+     *                      must be provided.
      * @throws InvalidKeyException if a signing key is not suitable for this signature scheme or
-     *         cannot be used in general
-     * @throws SignatureException if an error occurs when computing digests of generating
-     *         signatures
+     *                             cannot be used in general
+     * @throws SignatureException  if an error occurs when computing digests of generating
+     *                             signatures
      */
     public static List<Pair<String, byte[]>> sign(
             List<SignerConfig> signerConfigs,
@@ -237,7 +238,7 @@ public abstract class V1SchemeSigner {
             Map<String, byte[]> jarEntryDigests,
             List<Integer> apkSigningSchemeIds,
             byte[] sourceManifestBytes)
-                    throws InvalidKeyException, CertificateEncodingException, SignatureException {
+            throws InvalidKeyException, CertificateEncodingException, SignatureException {
         if (signerConfigs.isEmpty()) {
             throw new IllegalArgumentException("At least one signer config must be provided");
         }
@@ -252,19 +253,18 @@ public abstract class V1SchemeSigner {
      * JAR entries which need to be added to the APK as part of the signature.
      *
      * @param signerConfigs signer configurations, one for each signer. At least one signer config
-     *        must be provided.
-     *
+     *                      must be provided.
      * @throws InvalidKeyException if a signing key is not suitable for this signature scheme or
-     *         cannot be used in general
-     * @throws SignatureException if an error occurs when computing digests of generating
-     *         signatures
+     *                             cannot be used in general
+     * @throws SignatureException  if an error occurs when computing digests of generating
+     *                             signatures
      */
     public static List<Pair<String, byte[]>> signManifest(
             List<SignerConfig> signerConfigs,
             DigestAlgorithm digestAlgorithm,
             List<Integer> apkSigningSchemeIds,
             OutputManifestFile manifest)
-                    throws InvalidKeyException, CertificateEncodingException, SignatureException {
+            throws InvalidKeyException, CertificateEncodingException, SignatureException {
         if (signerConfigs.isEmpty()) {
             throw new IllegalArgumentException("At least one signer config must be provided");
         }
@@ -354,7 +354,7 @@ public abstract class V1SchemeSigner {
         List<String> sortedEntryNames = new ArrayList<>(jarEntryDigests.keySet());
         Collections.sort(sortedEntryNames);
         SortedMap<String, byte[]> invidualSectionsContents = new TreeMap<>();
-        String entryDigestAttributeName = getEntryDigestAttributeName(jarEntryDigestAlgorithm);
+        String entryDigestAttributeName = SignerInfoSignatureAlgorithmFinder.getEntryDigestAttributeName(jarEntryDigestAlgorithm);
         for (String entryName : sortedEntryNames) {
             byte[] entryDigest = jarEntryDigests.get(entryName);
             Attributes entryAttrs = new Attributes();
@@ -415,7 +415,7 @@ public abstract class V1SchemeSigner {
         // Add main attribute containing the digest of MANIFEST.MF.
         MessageDigest md = getMessageDigestInstance(manifestDigestAlgorithm);
         mainAttrs.putValue(
-                getManifestDigestAttributeName(manifestDigestAlgorithm),
+                SignerInfoSignatureAlgorithmFinder.getManifestDigestAttributeName(manifestDigestAlgorithm),
                 Base64.getEncoder().encodeToString(md.digest(manifest.contents)));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
@@ -423,7 +423,7 @@ public abstract class V1SchemeSigner {
         } catch (IOException e) {
             throw new RuntimeException("Failed to write in-memory .SF file", e);
         }
-        String entryDigestAttributeName = getEntryDigestAttributeName(manifestDigestAlgorithm);
+        String entryDigestAttributeName = SignerInfoSignatureAlgorithmFinder.getEntryDigestAttributeName(manifestDigestAlgorithm);
         for (Map.Entry<String, byte[]> manifestSection
                 : manifest.individualSectionsContents.entrySet()) {
             String sectionName = manifestSection.getKey();
@@ -457,21 +457,21 @@ public abstract class V1SchemeSigner {
 
     private static byte[] generateSignatureBlock(
             SignerConfig signerConfig, byte[] signatureFileBytes)
-                    throws InvalidKeyException, CertificateEncodingException, SignatureException {
+            throws InvalidKeyException, CertificateEncodingException, SignatureException {
         JcaCertStore certs = new JcaCertStore(signerConfig.certificates);
         X509Certificate signerCert = signerConfig.certificates.get(0);
         String jcaSignatureAlgorithm =
-                getJcaSignatureAlgorithm(
+                SignerInfoSignatureAlgorithmFinder.getJcaSignatureAlgorithm(
                         signerCert.getPublicKey(), signerConfig.signatureDigestAlgorithm);
         try {
             ContentSigner signer =
                     new JcaContentSignerBuilder(jcaSignatureAlgorithm)
-                    .build(signerConfig.privateKey);
+                            .build(signerConfig.privateKey);
             CMSSignedDataGenerator gen = new CMSSignedDataGenerator();
             gen.addSignerInfoGenerator(
                     new SignerInfoGeneratorBuilder(
                             new JcaDigestCalculatorProviderBuilder().build(),
-                            SignerInfoSignatureAlgorithmFinder.INSTANCE)
+                            (CMSSignatureEncryptionAlgorithmFinder) SignerInfoSignatureAlgorithmFinder.INSTANCE)
                             .setDirectSignature(true)
                             .build(signer, new JcaX509CertificateHolder(signerCert)));
             gen.addCertificates(certs);
@@ -481,7 +481,7 @@ public abstract class V1SchemeSigner {
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             try (ASN1InputStream asn1 = new ASN1InputStream(sigData.getEncoded())) {
-                DEROutputStream dos = new DEROutputStream(out);
+                ASN1OutputStream dos = ASN1OutputStream.create(out, "DER");
                 dos.writeObject(asn1.readObject());
             }
             return out.toByteArray();
@@ -498,76 +498,68 @@ public abstract class V1SchemeSigner {
         private static final SignerInfoSignatureAlgorithmFinder INSTANCE =
                 new SignerInfoSignatureAlgorithmFinder();
 
-        private static final AlgorithmIdentifier DSA =
-                new AlgorithmIdentifier(X9ObjectIdentifiers.id_dsa, DERNull.INSTANCE);
 
         private final CMSSignatureEncryptionAlgorithmFinder mDefault =
                 new DefaultCMSSignatureEncryptionAlgorithmFinder();
 
+
         @Override
-        public AlgorithmIdentifier findEncryptionAlgorithm(AlgorithmIdentifier id) {
+        public org.gradle.internal.impldep.org.bouncycastle.asn1.x509.AlgorithmIdentifier findEncryptionAlgorithm(org.gradle.internal.impldep.org.bouncycastle.asn1.x509.AlgorithmIdentifier algorithmIdentifier) {
             // Use the default chooser, but replace dsaWithSha1 with dsa. This is because "dsa" is
             // accepted by any Android platform whereas "dsaWithSha1" is accepted only since
             // API Level 9.
-            id = mDefault.findEncryptionAlgorithm(id);
-            if (id != null) {
-                ASN1ObjectIdentifier oid = id.getAlgorithm();
-                if (X9ObjectIdentifiers.id_dsa_with_sha1.equals(oid)) {
-                    return DSA;
-                }
+            // TODO: 2022/6/3 这里直接从api9开始
+            return mDefault.findEncryptionAlgorithm(algorithmIdentifier);
+        }
+
+        private static String getEntryDigestAttributeName(DigestAlgorithm digestAlgorithm) {
+            switch (digestAlgorithm) {
+                case SHA1:
+                    return "SHA1-Digest";
+                case SHA256:
+                    return "SHA-256-Digest";
+                default:
+                    throw new IllegalArgumentException(
+                            "Unexpected content digest algorithm: " + digestAlgorithm);
             }
-
-            return id;
         }
-    }
 
-    private static String getEntryDigestAttributeName(DigestAlgorithm digestAlgorithm) {
-        switch (digestAlgorithm) {
-            case SHA1:
-                return "SHA1-Digest";
-            case SHA256:
-                return "SHA-256-Digest";
-            default:
-                throw new IllegalArgumentException(
-                        "Unexpected content digest algorithm: " + digestAlgorithm);
+        private static String getManifestDigestAttributeName(DigestAlgorithm digestAlgorithm) {
+            switch (digestAlgorithm) {
+                case SHA1:
+                    return "SHA1-Digest-Manifest";
+                case SHA256:
+                    return "SHA-256-Digest-Manifest";
+                default:
+                    throw new IllegalArgumentException(
+                            "Unexpected content digest algorithm: " + digestAlgorithm);
+            }
         }
-    }
 
-    private static String getManifestDigestAttributeName(DigestAlgorithm digestAlgorithm) {
-        switch (digestAlgorithm) {
-            case SHA1:
-                return "SHA1-Digest-Manifest";
-            case SHA256:
-                return "SHA-256-Digest-Manifest";
-            default:
-                throw new IllegalArgumentException(
-                        "Unexpected content digest algorithm: " + digestAlgorithm);
-        }
-    }
-
-    private static String getJcaSignatureAlgorithm(
-            PublicKey publicKey, DigestAlgorithm digestAlgorithm) throws InvalidKeyException {
-        String keyAlgorithm = publicKey.getAlgorithm();
-        String digestPrefixForSigAlg;
-        switch (digestAlgorithm) {
-            case SHA1:
-                digestPrefixForSigAlg = "SHA1";
-                break;
-            case SHA256:
-                digestPrefixForSigAlg = "SHA256";
-                break;
-            default:
-                throw new IllegalArgumentException(
-                        "Unexpected digest algorithm: " + digestAlgorithm);
-        }
-        if ("RSA".equalsIgnoreCase(keyAlgorithm)) {
-            return digestPrefixForSigAlg + "withRSA";
-        } else if ("DSA".equalsIgnoreCase(keyAlgorithm)) {
-            return digestPrefixForSigAlg + "withDSA";
-        } else if ("EC".equalsIgnoreCase(keyAlgorithm)) {
-            return digestPrefixForSigAlg + "withECDSA";
-        } else {
-            throw new InvalidKeyException("Unsupported key algorithm: " + keyAlgorithm);
+        private static String getJcaSignatureAlgorithm(
+                PublicKey publicKey, DigestAlgorithm digestAlgorithm) throws InvalidKeyException {
+            String keyAlgorithm = publicKey.getAlgorithm();
+            String digestPrefixForSigAlg;
+            switch (digestAlgorithm) {
+                case SHA1:
+                    digestPrefixForSigAlg = "SHA1";
+                    break;
+                case SHA256:
+                    digestPrefixForSigAlg = "SHA256";
+                    break;
+                default:
+                    throw new IllegalArgumentException(
+                            "Unexpected digest algorithm: " + digestAlgorithm);
+            }
+            if ("RSA".equalsIgnoreCase(keyAlgorithm)) {
+                return digestPrefixForSigAlg + "withRSA";
+            } else if ("DSA".equalsIgnoreCase(keyAlgorithm)) {
+                return digestPrefixForSigAlg + "withDSA";
+            } else if ("EC".equalsIgnoreCase(keyAlgorithm)) {
+                return digestPrefixForSigAlg + "withECDSA";
+            } else {
+                throw new InvalidKeyException("Unsupported key algorithm: " + keyAlgorithm);
+            }
         }
     }
 }
