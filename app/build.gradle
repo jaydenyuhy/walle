@@ -1,6 +1,6 @@
 
 apply plugin: 'com.android.application'
-//apply plugin: 'walle'
+//apply plugin: 'key'
 apply from: rootProject.file('quality.gradle')
 
 buildscript {
@@ -26,7 +26,7 @@ android {
 
         versionCode 101
         versionName "1.0.1"
-        applicationId "com.meituan.android.walle.sample"
+        applicationId "com.meituan.android.key.sample"
     }
 
     splits {
@@ -39,10 +39,10 @@ android {
     }
 
     signingConfigs {
-        sign {
-            storeFile file("walle_debug.jks")
+        config {
+            storeFile file("key")
             storePassword "12345678"
-            keyAlias "walle"
+            keyAlias "key"
             keyPassword "12345678"
         }
     }
@@ -52,15 +52,13 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.sign
+            signingConfig signingConfigs.config
         }
 
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            signingConfig signingConfigs.sign
-
+            signingConfig signingConfigs.config
             applicationIdSuffix 'debug'
         }
     }
@@ -89,7 +87,7 @@ dependencies {
     implementation project(':library')
 }
 
-//walle {
+//key {
 //    apkOutputFolder = new File("${project.buildDir}/outputs/channels")
 //    apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}-${flavorName}.apk'
 //    //configFile与channelFile两者必须存在一个，否则无法生成渠道包。两者都存在时优先执行configFile
@@ -104,7 +102,7 @@ dependencies {
 //        variant.assemble.doFirst {
 //            if (variant.applicationId.endsWith(".debug")) {
 //
-//                project.walle.channelFile = new File("${project.getProjectDir()}/channel_debug")
+//                project.key.channelFile = new File("${project.getProjectDir()}/channel_debug")
 //            }
 //        }
 //    }
