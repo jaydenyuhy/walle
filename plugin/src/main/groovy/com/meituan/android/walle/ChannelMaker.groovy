@@ -7,6 +7,7 @@ import com.android.build.FilterData
 import com.android.build.gradle.api.BaseVariant
 import com.google.gson.Gson
 import groovy.text.SimpleTemplateEngine
+import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
 import org.gradle.api.DefaultTask
@@ -14,12 +15,6 @@ import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
-import org.gradle.internal.impldep.com.google.common.base.Charsets
-import org.gradle.internal.impldep.com.google.common.hash.HashCode
-import org.gradle.internal.impldep.com.google.common.hash.HashFunction
-import org.gradle.internal.impldep.com.google.common.hash.Hashing
-import org.gradle.internal.impldep.com.google.common.io.Files
-import org.gradle.internal.impldep.org.apache.commons.codec.digest.DigestUtils
 
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
@@ -306,7 +301,7 @@ class ChannelMaker extends DefaultTask {
     }
 
     private static String getFileHash(File file) throws IOException {
-        DigestUtils.md5Hex(new FileInputStream(file))
+        DigestUtils.md5(new FileInputStream(file))
 //        HashCode hashCode;
 //        HashFunction hashFunction = Hashing.sha1();
 //        if (file.isDirectory()) {
@@ -314,7 +309,7 @@ class ChannelMaker extends DefaultTask {
 //        } else {
 //            hashCode = Files.hash(file, hashFunction);
 //        }
-        return DigestUtils.md5Hex(new FileInputStream(file));
+        return DigestUtils.md5(new FileInputStream(file));
     }
 
 }
