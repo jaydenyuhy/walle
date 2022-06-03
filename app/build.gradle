@@ -6,11 +6,13 @@ apply from: rootProject.file('quality.gradle')
 
 buildscript {
     repositories {
-        mavenLocal()
-        jcenter()
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://maven.aliyun.com/repository/public" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "com.meituan.android.walle:plugin:latest.integration"
     }
 }
@@ -40,9 +42,9 @@ android {
 
     signingConfigs {
         sign {
-            storeFile file("keystore/sign-debug.keystore")
-            storePassword "1234567"
-            keyAlias "debug"
+            storeFile file("walle_debug.jks")
+            storePassword "12345678"
+            keyAlias "walle"
             keyPassword "12345678"
         }
     }
@@ -83,10 +85,10 @@ configurations.all {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:24.1.1'
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile project(':library')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation project(':library')
 }
 
 walle {
