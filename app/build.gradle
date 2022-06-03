@@ -42,7 +42,7 @@ android {
         config {
             storeFile file("key")
             storePassword "12345678"
-            keyAlias "key"
+            keyAlias "walle"
             keyPassword "12345678"
         }
     }
