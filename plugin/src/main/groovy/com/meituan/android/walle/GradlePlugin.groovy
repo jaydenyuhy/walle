@@ -3,6 +3,7 @@ package com.meituan.android.walle
 import com.android.build.gradle.api.BaseVariant
 import com.android.builder.model.SigningConfig
 import org.gradle.api.GradleException
+import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.ProjectConfigurationException
 
@@ -10,7 +11,7 @@ import java.util.jar.Attributes
 import java.util.jar.JarFile
 import java.util.jar.Manifest
 
-class GradlePlugin implements org.gradle.api.Plugin<Project> {
+class GradlePlugin implements Plugin<Project> {
 
     public static final String sPluginExtensionName = "walle";
 
@@ -93,7 +94,7 @@ class GradlePlugin implements org.gradle.api.Plugin<Project> {
 
         // check whether APK Signature Scheme v2 is enabled.
         if (signingConfig.hasProperty("v2SigningEnabled") &&
-                signingConfig.v2SigningEnabled == true) {
+                signingConfig.v2SigningEnabled) {
             return true;
         }
 

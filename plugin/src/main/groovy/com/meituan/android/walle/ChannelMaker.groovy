@@ -5,11 +5,6 @@ import com.android.apksigner.core.internal.util.ByteBufferDataSource
 import com.android.apksigner.core.util.DataSource
 import com.android.build.FilterData
 import com.android.build.gradle.api.BaseVariant
-import com.google.common.base.Charsets
-import com.google.common.hash.HashCode
-import com.google.common.hash.HashFunction
-import com.google.common.hash.Hashing
-import com.google.common.io.Files
 import com.google.gson.Gson
 import groovy.text.SimpleTemplateEngine
 import org.apache.commons.io.FileUtils
@@ -19,6 +14,11 @@ import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.impldep.com.google.common.base.Charsets
+import org.gradle.internal.impldep.com.google.common.hash.HashCode
+import org.gradle.internal.impldep.com.google.common.hash.HashFunction
+import org.gradle.internal.impldep.com.google.common.hash.Hashing
+import org.gradle.internal.impldep.com.google.common.io.Files
 
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
@@ -32,6 +32,14 @@ class ChannelMaker extends DefaultTask {
     public BaseVariant variant;
     @Input
     public Project targetProject;
+
+    BaseVariant getVariant() {
+        return variant
+    }
+
+    Project getTargetProject() {
+        return targetProject
+    }
 
     public void setup() {
         description "Make Multi-Channel"
@@ -167,7 +175,7 @@ class ChannelMaker extends DefaultTask {
 
                 boolean isFindConfigFile = false
                 locations.each { file ->
-                    if (isFindConfigFile){
+                    if (isFindConfigFile) {
                         return true
                     }
                     if (file.exists()) {

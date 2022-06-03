@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meituan.android.walle.ChannelInfo;
+//import com.meituan.android.walle.ChannelInfo;
 import com.meituan.android.walle.WalleChannelReader;
 
 
@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
     private void readChannel() {
         final TextView tv = (TextView) findViewById(R.id.tv_channel);
         final long startTime = System.currentTimeMillis();
-        final ChannelInfo channelInfo = WalleChannelReader.getChannelInfo(this.getApplicationContext());
-        if (channelInfo != null) {
-            tv.setText(channelInfo.getChannel() + "\n" + channelInfo.getExtraInfo());
-        }
+//        final ChannelInfo channelInfo = WalleChannelReader.getChannelInfo(this.getApplicationContext());
+//        if (channelInfo != null) {
+//            tv.setText(channelInfo.getChannel() + "\n" + channelInfo.getExtraInfo());
+//        }
         Toast.makeText(this, "ChannelReader takes " + (System.currentTimeMillis() - startTime) + " milliseconds", Toast.LENGTH_SHORT).show();
     }
 }
