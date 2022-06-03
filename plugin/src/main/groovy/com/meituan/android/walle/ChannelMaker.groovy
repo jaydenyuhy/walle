@@ -19,6 +19,7 @@ import org.gradle.internal.impldep.com.google.common.hash.HashCode
 import org.gradle.internal.impldep.com.google.common.hash.HashFunction
 import org.gradle.internal.impldep.com.google.common.hash.Hashing
 import org.gradle.internal.impldep.com.google.common.io.Files
+import org.gradle.internal.impldep.org.apache.commons.codec.digest.DigestUtils
 
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
@@ -305,14 +306,15 @@ class ChannelMaker extends DefaultTask {
     }
 
     private static String getFileHash(File file) throws IOException {
-        HashCode hashCode;
-        HashFunction hashFunction = Hashing.sha1();
-        if (file.isDirectory()) {
-            hashCode = hashFunction.hashString(file.getPath(), Charsets.UTF_16LE);
-        } else {
-            hashCode = Files.hash(file, hashFunction);
-        }
-        return hashCode.toString();
+        DigestUtils.md5Hex(new FileInputStream(file))
+//        HashCode hashCode;
+//        HashFunction hashFunction = Hashing.sha1();
+//        if (file.isDirectory()) {
+//            hashCode = hashFunction.hashString(file.getPath(), Charsets.UTF_16LE);
+//        } else {
+//            hashCode = Files.hash(file, hashFunction);
+//        }
+        return DigestUtils.md5Hex(new FileInputStream(file));
     }
 
 }

@@ -36,5 +36,5 @@ configurations.all {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.annotation:annotation:1.0.0'
-    implementation project(':payload_reader')
+    api project(':payload_reader')
 }
