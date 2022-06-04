@@ -1,9 +1,5 @@
 # Walle
-[![](https://jitpack.io/v/Petterpx/walle.svg)](https://jitpack.io/#Petterpx/walle)[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Meituan-Dianping/walle/pulls)[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/Meituan-Dianping/walle/master/LICENSE)
-
-## 
-
-## 
+[![](https://jitpack.io/v/Petterpx/walle.svg)](https://jitpack.io/#Petterpx/walle)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Meituan-Dianping/walle/pulls)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/Meituan-Dianping/walle/master/LICENSE)
 
 ## 说明
 
