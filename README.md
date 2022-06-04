@@ -1,28 +1,52 @@
 # Walle
-[![Release Version](https://api.bintray.com/packages/meituan/maven/com.meituan.android.walle:library/images/download.svg)](https://github.com/Meituan-Dianping/walle/releases)
-[![Build Status](https://api.travis-ci.org/Meituan-Dianping/walle.svg?branch=master)](https://travis-ci.org/Meituan-Dianping/walle)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Meituan-Dianping/walle/pulls)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/Meituan-Dianping/walle/master/LICENSE)
+[![](https://jitpack.io/v/Petterpx/walle.svg)](https://jitpack.io/#Petterpx/walle)[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Meituan-Dianping/walle/pulls)[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/Meituan-Dianping/walle/master/LICENSE)
+
+## 
+
+## 
+
+## 说明
+
+源自 [美团 Walle](https://github.com/Meituan-Dianping/walle) ,因官方已许久未更新(近两年，上一次是2020.12)，插件内部不少api都已过时或者需要更改逻辑，特fork这个库作为一个临时适配，并迁移到了jitpack。
+
+- 已适配到了 Agp7.0.4 ,理论上 7.x 都可以。
+
+如有问题，提 issus 即可，看到后就会帮忙解决，如果可以的话。
+
+> 后续如果官方正常更新，那么正常迁移到官方即可，并不影响。
+>
+> 下面文档copy自walle,依赖方式部分已更新。
+
+## Walle
 
 Walle（瓦力）：Android Signature V2 Scheme签名下的新一代渠道包打包神器
 
 瓦力通过在Apk中的`APK Signature Block`区块添加自定义的渠道信息来生成渠道包，从而提高了渠道包生成效率，可以作为单机工具来使用，也可以部署在HTTP服务器上来实时处理渠道包Apk的升级网络请求。
 
+## 
+
 ## Quick Start
+
 为了方便大家的使用，我们提供了2种使用方式：
 
 * Gradle插件方式，方便快速集成
 * 命令行方式，最大化满足各种自定义需求
 
-### Gradle插件使用方式
-#### 配置build.gradle
+## Gradle插件使用方式
+### Gradle 7.x以下
 
-在位于项目的根目录 `build.gradle` 文件中添加Walle Gradle插件的依赖， 如下：
+**build.gradle**
 
 ```groovy
+allprojects {
+		repositories {
+			// ...
+			maven { url 'https://jitpack.io' }
+		}
+}
 buildscript {
     dependencies {
-        classpath 'com.meituan.android.walle:plugin:1.1.7'
+        classpath 'com.github.Petterpx.walle:plugin:1.0.3'
     }
 }
 ```
@@ -33,7 +57,7 @@ buildscript {
 apply plugin: 'walle'
 
 dependencies {
-    compile 'com.meituan.android.walle:library:1.1.7'
+    implementation 'com.github.Petterpx.walle:library:1.0.3'
 }
 ```
 
@@ -67,7 +91,7 @@ walle {
 	    buildTime - buildTime (编译构建日期时间)
 	    fileSHA1 - fileSHA1 (最终APK文件的SHA1哈希值)
 	    flavorName - 编译构建 productFlavors 名
-	```  
+	```
 * channelFile：包含渠道配置信息的文件路径。 具体内容格式详见：[渠道配置文件示例](app/channel)，支持使用#号添加注释。
 
 #### 如何获取渠道信息
@@ -160,7 +184,7 @@ String value = WalleChannelReader.get(context, "buildtime");
 ## 注意事项
 
 * 使用apksigner重新对Apk签名会导致渠道信息丢失，需要再次写入渠道信息
-* 1.1.3版本起，walle支持对含有comment的apk进行渠道写入, 详见[issue 52](https://github.com/Meituan-Dianping/walle/issues/52)
+* walle支持对含有comment的apk进行渠道写入, 详见[issue 52](https://github.com/Meituan-Dianping/walle/issues/52)
 
 ## 技术支持
 
@@ -180,16 +204,18 @@ String value = WalleChannelReader.get(context, "buildtime");
 
 ## License
 
-    Copyright 2017 Meituan-Dianping
+```
+Copyright 2017 Meituan-Dianping
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+   http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

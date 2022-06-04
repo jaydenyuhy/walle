@@ -2,7 +2,7 @@
 
 ```groovy
 dependencies {
-    compile 'com.meituan.android.walle:payload_reader:1.1.7'
+    implementation 'com.github.Petterpx.walle:payload_reader:1.0.3'
 }
 ```
 
@@ -15,6 +15,6 @@ dependencies {
 非Android系统使用此jar包时需要添加org.json依赖
 
 ```groovy
-compile 'org.json:json:20080701'
+implementation 'org.json:json:20080813'
 ```
 备注：这么做主要是为了减少android方法数，利用系统自带的org.json
