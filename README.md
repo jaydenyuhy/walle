@@ -29,8 +29,6 @@ Walle（瓦力）：Android Signature V2 Scheme签名下的新一代渠道包打
 * 命令行方式，最大化满足各种自定义需求
 
 ## Gradle插件使用方式
-### Gradle 7.x以下
-
 **build.gradle**
 
 ```groovy
