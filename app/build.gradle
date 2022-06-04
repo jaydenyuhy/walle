@@ -1,7 +1,7 @@
-
 apply plugin: 'com.android.application'
-//apply plugin: 'key'
+apply plugin: 'walle'
 apply from: rootProject.file('quality.gradle')
+
 
 buildscript {
     repositories {
@@ -11,7 +11,8 @@ buildscript {
         maven { url "https://maven.aliyun.com/repository/public" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:7.0.2'
+        classpath "com.github.Petterpx.walle:plugin:1.0.3"
     }
 }
 
@@ -84,26 +85,15 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation project(':library')
+    implementation "com.github.Petterpx.walle:library:1.0.3"
 }
 
-//key {
-//    apkOutputFolder = new File("${project.buildDir}/outputs/channels")
-//    apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}-${flavorName}.apk'
-//    //configFile与channelFile两者必须存在一个，否则无法生成渠道包。两者都存在时优先执行configFile
-//    channelFile = new File("${project.getProjectDir()}/channel")
-//    //configFile = new File("${project.getProjectDir()}/config.json")
-//}
+walle {
+    apkOutputFolder = new File("${project.buildDir}/outputs/channels")
+    apkFileNameFormat = '${appName}-${packageName}-${channel}-${buildType}-v${versionName}-${versionCode}-${buildTime}-${flavorName}.apk'
+    //configFile与channelFile两者必须存在一个，否则无法生成渠道包。两者都存在时优先执行configFile
+    channelFile = new File("${project.getProjectDir()}/channel")
+    //configFile = new File("${project.getProjectDir()}/config.json")
+}
 
 
-// 根据不同的applicationId来配置不同的channelFile／configFile
-//afterEvaluate {
-//    project.android.applicationVariants.all { BaseVariant variant ->
-//        variant.assemble.doFirst {
-//            if (variant.applicationId.endsWith(".debug")) {
-//
-//                project.key.channelFile = new File("${project.getProjectDir()}/channel_debug")
-//            }
-//        }
-//    }
-//}

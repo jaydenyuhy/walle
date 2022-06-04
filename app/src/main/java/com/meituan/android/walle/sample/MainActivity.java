@@ -1,7 +1,9 @@
 package com.meituan.android.walle.sample;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
     private void readChannel() {
         final TextView tv = (TextView) findViewById(R.id.tv_channel);
         final long startTime = System.currentTimeMillis();
-//        final ChannelInfo channelInfo = WalleChannelReader.getChannelInfo(this.getApplicationContext());
-//        if (channelInfo != null) {
-//            tv.setText(channelInfo.getChannel() + "\n" + channelInfo.getExtraInfo());
-//        }
+        com.meituan.android.walle.ChannelInfo channelInfo = WalleChannelReader.getChannelInfo(this.getApplicationContext());
+        if (channelInfo != null) {
+            tv.setText(channelInfo.getChannel() + "\n" + channelInfo.getExtraInfo());
+        }
         Toast.makeText(this, "ChannelReader takes " + (System.currentTimeMillis() - startTime) + " milliseconds", Toast.LENGTH_SHORT).show();
     }
 }
