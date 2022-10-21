@@ -259,7 +259,7 @@ class ChannelMaker extends DefaultTask {
 
         String apkFileName = "${fileName}-${channelName}${DOT_APK}";
 
-        File channelApkFile = new File(apkFileName, channelOutputFolder);
+        File channelApkFile = new File(channelOutputFolder, apkFileName);
         FileUtils.copyFile(apkFile, channelApkFile);
         ChannelWriter.put(channelApkFile, channel, extraInfo)
 
@@ -269,7 +269,7 @@ class ChannelMaker extends DefaultTask {
         if (extension.apkFileNameFormat != null && extension.apkFileNameFormat.length() > 0) {
             def newApkFileName = new SimpleTemplateEngine().createTemplate(extension.apkFileNameFormat).make(nameVariantMap).toString()
             if (!newApkFileName.contentEquals(apkFileName)) {
-                channelApkFile.renameTo(new File(newApkFileName, channelOutputFolder))
+                channelApkFile.renameTo(new File(channelOutputFolder, newApkFileName))
             }
         }
     }
