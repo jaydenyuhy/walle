@@ -301,7 +301,7 @@ class ChannelMaker extends DefaultTask {
     }
 
     private static String getFileHash(File file) throws IOException {
-        DigestUtils.md5(new FileInputStream(file))
+//         DigestUtils.md5(new FileInputStream(file))
 //        HashCode hashCode;
 //        HashFunction hashFunction = Hashing.sha1();
 //        if (file.isDirectory()) {
@@ -309,7 +309,13 @@ class ChannelMaker extends DefaultTask {
 //        } else {
 //            hashCode = Files.hash(file, hashFunction);
 //        }
-        return DigestUtils.md5(new FileInputStream(file));
+//         return DigestUtils.md5(new FileInputStream(file));
+        
+        def fis = new FileInputStream(file)
+        def digest = DigestUtils.md5(fis)
+        fis.close()
+
+        return digest
     }
 
 }
