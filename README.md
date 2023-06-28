@@ -40,7 +40,7 @@ allprojects {
 }
 buildscript {
     dependencies {
-        classpath 'com.github.Petterpx.walle:plugin:1.0.4'
+        classpath 'com.github.Petterpx.walle:plugin:1.0.5'
     }
 }
 ```
@@ -51,7 +51,7 @@ buildscript {
 apply plugin: 'walle'
 
 dependencies {
-    implementation 'com.github.Petterpx.walle:library:1.0.4'
+    implementation 'com.github.Petterpx.walle:library:1.0.5'
 }
 ```
 
