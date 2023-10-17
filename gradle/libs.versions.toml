@@ -30,8 +30,7 @@ gradle = { module = "com.android.tools.build:gradle", version.ref = "androidGrad
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jcommander = { module = "com.beust:jcommander", version.ref = "jcommander" }
 json = { module = "org.json:json", version.ref = "json" }
-third_walle = { module = "com.github.Petterpx.walle:library", version = "1.0.3" }
-third_kotlin_stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+third_walle = { module = "com.github.Petterpx.walle:library", version = "1.0.5" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

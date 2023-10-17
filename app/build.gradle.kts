@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.walle)
+//    alias(libs.plugins.walle)
     alias(libs.plugins.kotlin.android)
 }
 
@@ -78,10 +78,10 @@ dependencies {
     implementation(libs.third.walle)
 }
 
-walle {
-    apkOutputFolder = File("${project.buildDir}/outputs/channels")
-    apkFileNameFormat = "\${appName}-\${packageName}-\${channel}-\${buildType}-v\${versionName}-\${versionCode}-\${buildTime}-\${flavorName}.apk"
-    //configFile与channelFile两者必须存在一个，否则无法生成渠道包。两者都存在时优先执行configFile
-    channelFile = File("${project.getProjectDir()}/channel_debug")
-    //configFile = new File("${project.getProjectDir()}/config.json")
-}
+//walle {
+//    apkOutputFolder = File("${project.buildDir}/outputs/channels")
+//    apkFileNameFormat = "\${appName}-\${packageName}-\${channel}-\${buildType}-v\${versionName}-\${versionCode}-\${buildTime}-\${flavorName}.apk"
+//    //configFile与channelFile两者必须存在一个，否则无法生成渠道包。两者都存在时优先执行configFile
+//    channelFile = File("${project.getProjectDir()}/channel_debug")
+//    //configFile = new File("${project.getProjectDir()}/config.json")
+//}
