@@ -25,11 +25,12 @@ afterEvaluate {
             maven(MavenPublication) {
                 //当前插件的名称
                 artifactId = POM_ARTIFACT_ID
-                from components.release
+//                from components.release
             }
         }
         //插件存储库
         repositories {
+//            mavenLocal()
             maven {
                 // 生成的插件位置
                 url = uri("$POM_URL")

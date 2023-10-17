@@ -1,0 +1,41 @@
+[versions]
+## SDK Versions
+annotation = "1.7.0"
+commonsCodec = "1.15"
+commonsIo = "2.11.0"
+commonsLang3 = "3.12.0"
+gson = "2.10.1"
+gsonVersion = "2.9.0"
+jcommander = "1.78"
+json = "20180813"
+minSdk = "28"
+targetSdk = "33"
+compileSdk = "34"
+#compileSdk = "34"
+
+# Dependencies
+androidGradlePlugin = "8.3.0-alpha07"
+kotlin = "1.9.0"
+
+
+[libraries]
+
+androidx_appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha02" }
+
+androidx_annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
+commons-codec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commonsIo" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commonsLang3" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+jcommander = { module = "com.beust:jcommander", version.ref = "jcommander" }
+json = { module = "org.json:json", version.ref = "json" }
+third_walle = { module = "com.github.Petterpx.walle:library", version = "1.0.3" }
+third_kotlin_stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+walle = { id = "com.github.jaydenyuhy.walle", version = "1.0.0" }
+[bundles]
