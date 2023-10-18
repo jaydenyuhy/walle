@@ -22,10 +22,28 @@ version = VERSION_NAME
 afterEvaluate {
     publishing {
         publications {
-            maven(MavenPublication) {
+
+            mavenJava(MavenPublication) {
                 //当前插件的名称
                 artifactId = POM_ARTIFACT_ID
-//                from components.release
+
+                tasks.register('androidSourcesJar', Jar) {
+                    archiveClassifier.set('sources')
+                    from project.android.sourceSets.main.java.source
+                    archiveBaseName.set("${project.name}")
+                }
+
+                tasks.register('androidLibraryJar', Jar) {
+                    dependsOn compileReleaseJavaWithJavac
+                    from compileReleaseJavaWithJavac.destinationDir
+                    exclude '**/R.class'
+                    exclude '**/R$*.class'
+                    archiveBaseName.set("${project.name}")
+                }
+
+                artifact androidLibraryJar
+                artifact androidSourcesJar
+                artifact project.tasks.bundleReleaseAar
             }
         }
         //插件存储库
