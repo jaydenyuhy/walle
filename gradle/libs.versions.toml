@@ -16,7 +16,8 @@ compileSdk = "36"
 androidGradlePlugin = "9.0.0"
 kotlin = "2.3.10"
 bouncycastle = "1.83" # 或者更高版本
-custom_walle = "1.0.6"
+custom_walle = "1.1.7"
+#custom_walle = "1.0.6"
 
 [libraries]
 
@@ -33,12 +34,15 @@ json = { module = "org.json:json", version.ref = "json" }
 bouncycastle-bcpkix = { group = "org.bouncycastle", name = "bcpkix-jdk18on", version.ref = "bouncycastle" }
 bouncycastle-bcprov = { group = "org.bouncycastle", name = "bcprov-jdk18on", version.ref = "bouncycastle" }
 
-walle_library = { module = "com.github.jaydenyuhy.walle:library", version.ref = "custom_walle" }
-walle_payload_writer = { module = "com.github.jaydenyuhy.walle:payload_writer", version.ref = "custom_walle" }
+#walle_library = { module = "com.github.jaydenyuhy.walle:library", version.ref = "custom_walle" }
+#walle_payload_writer = { module = "com.github.jaydenyuhy.walle:payload_writer", version.ref = "custom_walle" }
+walle_library = { module = "com.meituan.android.walle:library", version.ref = "custom_walle" }
+walle_payload_writer = { module = "com.meituan.android.walle:payload_writer", version.ref = "custom_walle" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-walle = { id = "com.github.jaydenyuhy.walle", version.ref = "custom_walle" }
+#walle = { id = "com.github.jaydenyuhy.walle", version.ref = "custom_walle" }
+walle = { id = "com.meituan.android.walle.walle", version.ref = "custom_walle" }
 [bundles]
