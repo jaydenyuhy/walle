@@ -30,24 +30,23 @@ afterEvaluate {
                 pom.withXml {
                     def dependenciesNode = asNode().appendNode('dependencies')
 
-                    project.configurations.implementation.allDependencies.each {
-                        def groupId = it.group
-                        def artifactId = it.name
-                        // If we specify an artifact id that differs from the project name, it won't
-                        // match. To avoid that, we look up the artifact id (and group) by property
-                        // for any project dependencies.
-                        // TODO: there must be a neater way to do this.
-                        if (it instanceof ProjectDependency) {
-                            def dependencyProperties = it.getDependencyProject().getProperties()
+                    project.configurations.implementation.allDependencies.each { dep ->
+                        def groupId = dep.group
+                        def artifactId = dep.name
+                        def version = dep.version
+
+                        if (dep instanceof ProjectDependency) {
+                            def depProject = project.findProject(dep.path)
                             groupId = GROUP_ID
-                            artifactId = dependencyProperties.get("POM_ARTIFACT_ID")
+                            artifactId = depProject.findProperty("POM_ARTIFACT_ID")
+                            version = project.version
                         }
-                        if(groupId != null && groupId.length() > 0 &&
-                                artifactId != null && artifactId.length() > 0){
+
+                        if (groupId && artifactId && version) {
                             def dependencyNode = dependenciesNode.appendNode('dependency')
                             dependencyNode.appendNode('groupId', groupId)
                             dependencyNode.appendNode('artifactId', artifactId)
-                            dependencyNode.appendNode('version', it.version)
+                            dependencyNode.appendNode('version', version)
                             dependencyNode.appendNode('scope', 'compile')
                         }
                     }
