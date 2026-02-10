@@ -16,8 +16,8 @@ pluginManagement {
         maven("https://maven.aliyun.com/repository/google")
         mavenLocal()
     }
-
-    includeBuild("plugin")
+    //for debug
+//    includeBuild("plugin")
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
@@ -43,7 +43,7 @@ dependencyResolutionManagement {
 
 include(":app")
 include(":library")
-//include(":plugin")
+include(":plugin")
 include(":payload_reader")
 include(":payload_writer")
 include(":walle-cli")

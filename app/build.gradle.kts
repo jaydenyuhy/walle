@@ -4,7 +4,8 @@ import org.gradle.kotlin.dsl.configure
 plugins {
     alias(libs.plugins.android.application)
 //    alias(libs.plugins.walle)
-    id("com.github.jaydenyuhy.walle")
+    //for debug
+//    id("com.github.jaydenyuhy.walle")
 }
 
 apply(from = rootProject.file("quality.gradle"))
@@ -82,10 +83,10 @@ dependencies {
     implementation(libs.walle.library)
 }
 
-walle {
-    apkOutputFolder = File("${project.buildDir}/outputs/channels")
-    apkFileNameFormat = "\${appName}-\${packageName}-\${channel}-\${buildType}-v\${versionName}-\${versionCode}-\${buildTime}-\${flavorName}.apk"
-    //configFile与channelFile两者必须存在一个，否则无法生成渠道包。两者都存在时优先执行configFile
-    channelFile = File("${project.getProjectDir()}/channel_debug")
-    //configFile = new File("${project.getProjectDir()}/config.json")
-}
+//walle {
+//    apkOutputFolder = File("${project.buildDir}/outputs/channels")
+//    apkFileNameFormat = "\${appName}-\${packageName}-\${channel}-\${buildType}-v\${versionName}-\${versionCode}-\${buildTime}-\${flavorName}.apk"
+//    //configFile与channelFile两者必须存在一个，否则无法生成渠道包。两者都存在时优先执行configFile
+//    channelFile = File("${project.getProjectDir()}/channel_debug")
+//    //configFile = new File("${project.getProjectDir()}/config.json")
+//}

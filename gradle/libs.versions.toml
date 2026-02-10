@@ -43,6 +43,5 @@ walle_payload_writer = { module = "com.meituan.android.walle:payload_writer", ve
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-#walle = { id = "com.github.jaydenyuhy.walle", version.ref = "custom_walle" }
-walle = { id = "com.meituan.android.walle.walle", version.ref = "custom_walle" }
+#walle = { id = "com.github.jaydenyuhy.walle", version = "1.0.0" }
 [bundles]
