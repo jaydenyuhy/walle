@@ -16,7 +16,7 @@ compileSdk = "36"
 androidGradlePlugin = "9.0.0"
 kotlin = "2.3.10"
 bouncycastle = "1.83" # 或者更高版本
-custom_walle = "1.0.0"
+custom_walle = "1.0.6"
 
 [libraries]
 
