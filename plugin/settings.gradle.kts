@@ -1,3 +1,5 @@
+rootProject.name = "walle-plugin"
+
 pluginManagement {
     repositories {
         maven("https://jitpack.io")
@@ -10,10 +12,14 @@ pluginManagement {
         gradlePluginPortal()
         mavenLocal()
     }
-
-    includeBuild("plugin")
 }
+
 dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            from(files("../gradle/libs.versions.toml"))
+        }
+    }
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
         maven("https://jitpack.io")
@@ -27,13 +33,3 @@ dependencyResolutionManagement {
 
     }
 }
-
-
-include(":app")
-include(":library")
-//include(":plugin")
-include(":payload_reader")
-include(":payload_writer")
-include(":walle-cli")
-
-rootProject.name = "walle"

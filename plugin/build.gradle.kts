@@ -26,7 +26,9 @@ dependencies {
     implementation(libs.json)
     implementation(libs.gson)
     implementation(libs.gradle)
-    implementation(project(":payload_writer"))
+    implementation(libs.bouncycastle.bcpkix)
+    implementation(libs.bouncycastle.bcprov)
+    implementation(libs.walle.payload.writer)
 }
 
 java{

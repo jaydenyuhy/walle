@@ -1,5 +1,8 @@
 package com.meituan.android.walle
 
+import com.android.build.api.artifact.SingleArtifact
+import com.android.build.api.variant.ApplicationAndroidComponentsExtension
+import com.android.build.api.variant.ApplicationVariant
 import com.android.build.gradle.api.BaseVariant
 import com.android.builder.model.SigningConfig
 import org.gradle.api.GradleException
@@ -51,7 +54,12 @@ class GradlePlugin implements Plugin<Project> {
 
         applyExtension(project);
 
-        applyTask(project);
+        def androidComponents = project.extensions.findByType(ApplicationAndroidComponentsExtension.class)
+        if (androidComponents != null) {
+            applyTaskV2(project, androidComponents)
+        } else {
+            applyTask(project)
+        }
     }
 
     void applyExtension(Project project) {
@@ -99,6 +107,31 @@ class GradlePlugin implements Plugin<Project> {
         }
 
         return false;
+    }
+
+    void applyTaskV2(Project project, ApplicationAndroidComponentsExtension androidComponents) {
+        // 使用新 API 遍历变体
+        androidComponents.onVariants(androidComponents.selector().all(), { ApplicationVariant variant ->
+            def variantName = variant.name.capitalize()
+
+            // 创建 Task
+            def taskProvider = project.tasks.register("assemble${variantName}Channels", ChannelMakerV2) { channelMaker ->
+                channelMaker.targetProject = project
+                // 传递 Variant 对象（注意：现在的类型是 com.android.build.api.variant.Variant）
+                channelMaker.variant = variant
+
+                // 将 AGP 生成的 APK 目录作为输入传递给 Task
+                channelMaker.apkDirectory.set(variant.artifacts.get(SingleArtifact.APK.INSTANCE))
+
+                channelMaker.setup()
+            }
+
+            // 延迟关联到 assemble 任务
+            // 不要直接 named()，因为任务还没创建。使用 matching 匹配。
+            project.tasks.matching { it.name == "assemble${variantName}" }.configureEach { assembleTask ->
+                assembleTask.finalizedBy(taskProvider)
+            }
+        })
     }
 
     /**

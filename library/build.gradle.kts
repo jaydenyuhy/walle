@@ -1,16 +1,17 @@
+import com.android.build.api.dsl.LibraryExtension
+import org.gradle.kotlin.dsl.configure
+
 apply(from = rootProject.file("quality.gradle"))
 apply(from = "../maven-publish_library.gradle")
 plugins {
     alias(libs.plugins.android.library)
 }
 
-android {
+extensions.configure<LibraryExtension> {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-
+        lint.targetSdk = libs.versions.targetSdk.get().toInt()
     }
 
     lint {
@@ -23,9 +24,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-//    kotlinOptions {
-//        jvmTarget = "17"
-//    }
     namespace = "com.meituan.android.walle"
 
 }

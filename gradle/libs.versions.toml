@@ -1,26 +1,26 @@
 [versions]
 ## SDK Versions
-annotation = "1.7.0"
-commonsCodec = "1.15"
-commonsIo = "2.11.0"
-commonsLang3 = "3.12.0"
-gson = "2.10.1"
+annotation = "1.9.1"
+commonsCodec = "1.21.0"
+commonsIo = "2.21.0"
+commonsLang3 = "3.20.0"
+gson = "2.13.2"
 gsonVersion = "2.9.0"
-jcommander = "1.78"
-json = "20180813"
+jcommander = "1.82"
+json = "20251224"
 minSdk = "28"
-targetSdk = "33"
-compileSdk = "34"
-#compileSdk = "34"
+targetSdk = "36"
+compileSdk = "36"
 
 # Dependencies
-androidGradlePlugin = "8.3.0-alpha07"
-kotlin = "1.9.0"
-
+androidGradlePlugin = "9.0.0"
+kotlin = "2.3.10"
+bouncycastle = "1.83" # 或者更高版本
+custom_walle = "1.0.0"
 
 [libraries]
 
-androidx_appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha02" }
+androidx_appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
 
 androidx_annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 commons-codec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
@@ -30,11 +30,15 @@ gradle = { module = "com.android.tools.build:gradle", version.ref = "androidGrad
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jcommander = { module = "com.beust:jcommander", version.ref = "jcommander" }
 json = { module = "org.json:json", version.ref = "json" }
-third_walle = { module = "com.github.Petterpx.walle:library", version = "1.0.5" }
+bouncycastle-bcpkix = { group = "org.bouncycastle", name = "bcpkix-jdk18on", version.ref = "bouncycastle" }
+bouncycastle-bcprov = { group = "org.bouncycastle", name = "bcprov-jdk18on", version.ref = "bouncycastle" }
+
+walle_library = { module = "com.github.jaydenyuhy.walle:library", version.ref = "custom_walle" }
+walle_payload_writer = { module = "com.github.jaydenyuhy.walle:payload_writer", version.ref = "custom_walle" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-walle = { id = "com.github.jaydenyuhy.walle", version = "1.0.0" }
+walle = { id = "com.github.jaydenyuhy.walle", version.ref = "custom_walle" }
 [bundles]

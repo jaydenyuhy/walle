@@ -61,7 +61,9 @@ afterEvaluate {
 
                 tasks.register('androidLibraryJar', Jar) {
                     dependsOn compileReleaseJavaWithJavac
-                    from compileReleaseJavaWithJavac.destinationDir
+                    from(tasks.named('compileReleaseJavaWithJavac').map {
+                        it.destinationDirectory
+                    })
                     exclude '**/R.class'
                     exclude '**/R$*.class'
                     archiveBaseName.set("${project.name}")
